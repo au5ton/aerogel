@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    ports:
+    - "25565:25565"
+    - "25575:25575"
+    - "4567:4567"
+    volumes:
+    - "/mnt/minecraft:/data"
+    environment:
+    - EULA=TRUE
+    env_file:
+    - minecraft.env
+  parrot:
+    build:
+      context: ./parrot
+      depends_on:
+      - minecraft
+    ports:
+    - "5000:5000"
+    env_file:
+    - parrot.env
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 5s
