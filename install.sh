@@ -31,7 +31,7 @@ fi
 # Clone repo
 echo "Downloading Aerogel config files"
 $WORKDIR=$HOME/aerogel
-if [ ! -d "/path/to/dir" ]; then
+if [ ! -d "$WORKDIR" ]; then
   git clone --recursive https://github.com/au5ton/aerogel.git $WORKDIR
 else
   echo "Aerogel repository already downloaded, pulling latest version"
