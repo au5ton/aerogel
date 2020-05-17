@@ -12,6 +12,12 @@ services:
     - EULA=TRUE
     env_file:
     - minecraft.env
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 5s
   parrot:
     build:
       context: ./parrot
