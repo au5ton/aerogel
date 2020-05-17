@@ -10,7 +10,7 @@
 [ ! -x "$(command -v python)" ] && echo "python is required to install. Please install before proceeding." && exit
 
 # Install Docker
-if [ ! -x "$(command -v docker)" ]; then
+if [ ! "$(which docker)" = "" ]; then
   echo "Docker seems to be installed already. Skipping installation"
 else
   echo "Installing Docker"
@@ -19,7 +19,7 @@ else
 fi
 
 # Install Docker Compose
-if [ ! -x "$(command -v docker-compose)" ]; then
+if [ ! "$(which docker-compose)" = "" ]; then
   echo "Docker Compose seems to be installed already. Skipping installation"
 else
   echo "Installing Docker Compose"
