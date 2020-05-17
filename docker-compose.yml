@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 services:
   minecraft:
     image: itzg/minecraft-server:latest
@@ -15,10 +15,8 @@ services:
   parrot:
     build:
       context: ./parrot
-      depends_on:
-      - minecraft
     ports:
-    - "5000:5000"
+    - "8000:8000"
     env_file:
     - parrot.env
     deploy:
