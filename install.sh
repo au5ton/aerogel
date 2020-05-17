@@ -62,10 +62,11 @@ do
   wget "$f" -q --show-progress -P /mnt/minecraft/plugins
   cat $f
 done
+echo ""
 
 # Start the containers
 echo "Starting containers"
-docker-compose --project-directory $WORKDIR up -d
+docker-compose --file $WORKDIR/docker-compose.yml up -d
 
 # Setting permissions for job script
 echo "Setting permissions for autoshutdown.sh"
