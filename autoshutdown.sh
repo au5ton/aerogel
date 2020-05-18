@@ -18,7 +18,7 @@ function server_off()
 function get_online()
 {
   NUM=$(curl --silent http://127.0.0.1:8000/api/slots | python -c "import sys, json; print(json.load(sys.stdin)['online'])");
-  [ ! "$?" = "0" ] && echo "Process exited with an error, shutting down as a precaution" && server_off;
+  [ ! "$?" = "0" ] && NUM="0"; # if there's an error, pretend that the server is empty
   echo "$NUM";
 }
 
