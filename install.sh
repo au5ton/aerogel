@@ -28,6 +28,9 @@ else
   sudo chmod +x /usr/local/bin/docker-compose
 fi
 
+# Installs lazydocker for maintenance
+sudo curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
 # Clone repo
 echo "Downloading Aerogel config files"
 WORKDIR=$HOME/aerogel
@@ -62,11 +65,15 @@ do
   wget "$f" -q --show-progress -P /mnt/minecraft/plugins
   cat $f
 done
-echo ""
+echo "\n"
 
 # Start the containers
 echo "Starting containers"
-docker-compose --file $WORKDIR/docker-compose.yml up -d
+sudo docker-compose --file "$WORKDIR/docker-compose.yml" up -d
+
+# Configure the restart policy because docker-compose 3.0+ is retarded and won't let us do it ourselves
+sudo docker container update --restart unless-stopped aerogel_minecraft_1
+sudo docker container update --restart unless-stopped aerogel_parrot_1
 
 # Setting permissions for job script
 echo "Setting permissions for autoshutdown.sh"
