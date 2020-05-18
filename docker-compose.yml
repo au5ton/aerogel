@@ -10,6 +10,7 @@ services:
     - "/mnt/minecraft:/data"
     environment:
     - EULA=TRUE
+    command: --noconsole
     env_file:
     - minecraft.env
   parrot:
