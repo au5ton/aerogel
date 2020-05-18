@@ -86,7 +86,7 @@ for f in $PLUGINS
 do
   echo "Downloading plugin $f ..."
   URL=$(cat $f)
-  wget "$f" -q --show-progress -P /mnt/minecraft/plugins
+  wget "$f" -P /mnt/minecraft/plugins
   cat $f
 done
 echo "\n"
