@@ -67,6 +67,8 @@ do
 done
 echo "\n"
 
+sleep 20s
+
 # Start the containers
 echo "Starting containers"
 sudo docker-compose --file "$WORKDIR/docker-compose.yml" up -d
