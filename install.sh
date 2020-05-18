@@ -56,6 +56,14 @@ editor $WORKDIR/parrot.env
 echo "Creating plugins folder"
 sudo mkdir -p /mnt/minecraft/plugins
 
+# Start the containers
+echo "Starting containers"
+sudo docker-compose --file "$WORKDIR/docker-compose.yml" up -d
+
+# Configure the restart policy because docker-compose 3.0+ is retarded and won't let us do it ourselves
+sudo docker container update --restart unless-stopped aerogel_minecraft_1
+sudo docker container update --restart unless-stopped aerogel_parrot_1
+
 # Downloading plugins
 PLUGINS=$WORKDIR/plugins/*
 for f in $PLUGINS
@@ -67,15 +75,8 @@ do
 done
 echo "\n"
 
-sleep 20s
-
-# Start the containers
-echo "Starting containers"
-sudo docker-compose --file "$WORKDIR/docker-compose.yml" up -d
-
-# Configure the restart policy because docker-compose 3.0+ is retarded and won't let us do it ourselves
-sudo docker container update --restart unless-stopped aerogel_minecraft_1
-sudo docker container update --restart unless-stopped aerogel_parrot_1
+# Restarting server to use plugins
+sudo docker container restart aerogel_minecraft_1
 
 # Setting permissions for job script
 echo "Setting permissions for autoshutdown.sh"
